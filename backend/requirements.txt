@@ -1,0 +1,12 @@
+pandas
+numpy
+openai
+tiktoken
+fastapi
+uvicorn
+langchain
+langchain-community
+langchain-openai
+langchainhub
+faiss-cpu
+typing-extensions
