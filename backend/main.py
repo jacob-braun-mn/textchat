@@ -16,6 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Use hf models here
 gpt_client = "instantiate model here"
 embedding_client = "instantiate embedding model here"
 
