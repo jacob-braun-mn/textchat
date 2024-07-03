@@ -1,0 +1,51 @@
+@keyframes boldFade {
+  0% {
+    background-color: rgba(255, 240, 195, 0.7);
+  }
+  50% {
+    background-color: rgb(255, 240, 0);
+  }
+  100% {
+    background-color: rgba(255, 240, 195, 0.7);
+  }
+}
+
+.doc-viewer {
+  padding: 20px;
+  background-color: white;
+  white-space: pre-wrap;
+
+  h1 {
+    margin: 10px 0px;
+  }
+
+  hr {
+    border: 0.5px solid rgba(169, 169, 169, 0.35);
+    margin-bottom: 20px;
+  }
+
+  .highlight {
+    background-color: rgba(255, 240, 195, 0.7);
+  }
+
+  .animate-highlight {
+    animation-name: boldFade;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    li {
+      margin: 0;
+    }
+  }
+
+  h2 {
+    margin: 0;
+  }
+}

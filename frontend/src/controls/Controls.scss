@@ -1,0 +1,151 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.controls {
+  h1 {
+    margin: 10px 0px;
+  }
+
+  hr {
+    border: 1px solid rgba(169, 169, 169, 0.35);
+    margin-bottom: 20px;
+  }
+
+  .add-text {
+    width: 100%;
+    color: white;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .search-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    textarea {
+      font-size: 1.1em;
+      flex-grow: 1;
+      margin-right: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 1.3em;
+      min-height: 1.3em;
+      max-height: 8em;
+      resize: vertical;
+      overflow-y: auto;
+    }
+
+    button {
+      font-size: 1.1em;
+      width: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #218838;
+      }
+
+      &.loading {
+        background-color: #ccc;
+        cursor: not-allowed;
+
+        .spinner {
+          border: 2px solid #f3f3f3;
+          border-top: 2px solid #3498db;
+          border-radius: 50%;
+          width: 14px;
+          height: 14px;
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+
+  .search-results {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .similarity-link {
+      display: block;
+      cursor: pointer;
+      color: navy;
+      text-decoration: underline;
+      margin-bottom: 4px;
+    }
+
+    .model-summary {
+      margin-top: 20px;
+      overflow-x: hidden;
+    }
+  }
+
+  .dropdown-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .dropdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .dropdown {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    label {
+      font-size: 1em;
+    }
+  }
+}
