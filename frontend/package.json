@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "private": true,
+  "homepage": "https://jacob-braun-mn.github.io/textchat",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
