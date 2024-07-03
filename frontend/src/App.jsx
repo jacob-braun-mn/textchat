@@ -45,7 +45,7 @@ function App() {
       formData.append("topK", topK)
 
       const response = await axios.post(
-        "https://jacob-braun-mn-textchatapi.hf.space:8000/search_document",
+        "https://jacob-braun-mn-textchatapi.hf.space/search_document",
         formData,
         {
           headers: {
