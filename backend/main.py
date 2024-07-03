@@ -1,6 +1,8 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from langchain_huggingface import HuggingFaceEmbeddings
+from transformers import pipeline
 from helpers import store_doc, get_relevant_docs, get_answer
 import os
 
@@ -16,24 +18,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Use hf models here
-gpt_client = "instantiate model here"
-embedding_client = "instantiate embedding model here"
+model_pipe = pipeline("text-generation", model="./models/Qwen2-1dot5B-Instruct")
+embeddings = HuggingFaceEmbeddings(model_name="all-mpnet-base-v2")
 
 @app.post("/search_document")
 async def retrieve_record(textFile: UploadFile = File(...),
                           userQuery: str = Form(...),
                           chunkLen: int = Form(...),
-                          overlapLen: int = Form(...),
                           aiSummaryEnabled: bool = Form(...),
                           topK: int = Form(...)):
+    
     fileContent = await textFile.read()
     fullText = fileContent.decode("utf-8")
     
     db, splits = store_doc(fullText,
                            chunkLen,
-                           overlapLen,
-                           embedding_client)
+                           embeddings)
     
     highlights, docviewer_text = get_relevant_docs(splits,
                                                     userQuery,
@@ -43,8 +43,7 @@ async def retrieve_record(textFile: UploadFile = File(...),
     if aiSummaryEnabled:
         model_answer = get_answer(highlights,
                                   userQuery,
-                                  gpt_client,
-                                  "model_name")
+                                  model_pipe)
     else:
         model_answer = None
 

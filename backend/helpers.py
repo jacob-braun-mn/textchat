@@ -5,11 +5,11 @@ from typing import List, Dict, Union
 import time
 
 
-def store_doc(fullText, chunkLen, overlapLen, embeddingModel):
+def store_doc(fullText, chunkLen, embeddingModel):
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         model_name="gpt-4o",
         chunk_size=chunkLen,
-        chunk_overlap=overlapLen,
+        chunk_overlap=0,
         is_separator_regex=False,
     )
 
@@ -59,7 +59,7 @@ def transform_documents(splits: List[Document]) -> List[Dict[str, Union[int, str
 
 def get_relevant_docs(splits, userQuery, db, topK):
     print("Searching for relevant documents...")
-    docs = db.similarity_search_with_relevance_scores(query=userQuery, top_k=topK)
+    docs = db.similarity_search_with_relevance_scores(query=userQuery, k=topK)
 
     highlights = []
     for i, doc in enumerate(docs):
@@ -78,7 +78,7 @@ def get_relevant_docs(splits, userQuery, db, topK):
 
 
 
-def get_answer(highlights, question, client, model_name):
+def get_answer(highlights, question, model_pipe):
     instructions = """
     # INSTRUCTIONS\n\nYou are a helpful assistant that reviews relevant sections of clinical notes to answer user questions.  First, review the text provided under the # Highlighted Sections in the user message to familiarize yourself with the content.  Then, read the user question under the # Question section and think step by step through what information you need to answer their question.  Next, review the provided Highlighted Sections for context again and find the relevant information for the user's question.  Finally, synthesize that relevant information to answer the user's question.  Keep your answer fully grounded in the facts from the Highlight Sections and reply at a 10th grade reading level.  Keep your answer as concise as possible and only use relevant information from the provided documents.  If the Highlighted Sections do not contain the necessary facts to answer the user's question, please respond with 'I didn't find the necessary information.  Please try rephrasing your question or providing additional text.'  Provide your summary in markdown format but do not use H1 (#) or H2 (##) headers. 
     """
@@ -97,7 +97,7 @@ def get_answer(highlights, question, client, model_name):
         {"role": "user", "content": documents + question + reminder}
     ]
 
-    response = {"content": "Some answer from a model call"}
+    response = model_pipe(messages, max_length=4096, temperature=0.7, num_return_sequences=1)
 
-    return response['content']
+    return response[0]['generated_text'][-1]['content']
 

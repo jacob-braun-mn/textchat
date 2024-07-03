@@ -7,6 +7,8 @@ uvicorn
 langchain
 langchain-community
 langchain-openai
+langchain-huggingface
 langchainhub
 faiss-cpu
 typing-extensions
+sentence-transformers
