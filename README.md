@@ -16,6 +16,7 @@ For development purposes, the free public models below are used.  For a producti
 - The API auto-scales to 0 nodes after 72 hours.  If this happens, the API will need to spin back up which can take ~5min
 - The application is not designed to handle multiple simultaneous user interactions.  As such, the API can return unexpected results if multiple users use the app at the same time
 - Performance is generally a bit slow as I'm trying to use free/cheap compute on Huggingface
+- Not optimized for mobile - please view on a computer monitor
 
 ## Links
 
